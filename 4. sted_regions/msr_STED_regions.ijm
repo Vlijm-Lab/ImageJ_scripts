@@ -1,5 +1,4 @@
 // input / output directories
-// input / output directories
 dir = "E:\\ImageJ_Macros\\4. sted_regions\\"
 input  = dir + "data\\";
 output = dir + "output\\";
@@ -45,13 +44,13 @@ for (i = 0; i != list.length; i++)
 	w = 1E6 * substring(info, i0+11, i1); 
 	h = 1E6 * substring(info, i1+2, i2); 
 	
-	
 	// Obtain offsets
 	i0 = indexOf(info, "Offsets = [");
 	i1 = indexOf(info, ",", i0);
 	i2 = indexOf(info, ",", i1+1);
 	x = 1E6 * substring(info, i0+11, i1);
 	y = 1E6 * substring(info, i1+2, i2);
+
 	close();
 
 
@@ -68,13 +67,20 @@ for (i = 0; i != list.length; i++)
 	cw = 1E6 * substring(info, i0+11, i1); 
 	ch = 1E6 * substring(info, i1+2, i2); 
 	
+	i_off0 = indexOf(info, "Offsets = [");
+	i_off1 = indexOf(info, ",", i_off0);
+	i_off2 = indexOf(info, ",", i_off1+1);
+	xs = 1E6 * substring(info, i_off0+11, i_off1);
+	ys = 1E6 * substring(info, i_off1+2, i_off2);
+
 	// colormap and brightness/contrast
     run("Green");
     run("Enhance Contrast", "saturated=0.35");
     
 	// Rectangle info
-	xr = (x + cw/2)/pxs;
-	yr = (y + ch/2)/pxs;
+	xr = (x - xs)/pxs;
+	yr = (y - ys)/pxs;
+	
 	wr = w/pxs;
 	hr = h/pxs;
 	
